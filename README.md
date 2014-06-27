@@ -1,10 +1,7 @@
-backend
-=======
+# Recruitment_Backend
 
-Recruitment Backend
+## Servers
 
-Servers
-========
 TBD: Google App Engine
 A little [background](http://blog.golang.org/go-and-google-app-engine) on the Go runtime for App Engine.
 
@@ -14,8 +11,8 @@ A few things to note:
 * App Engine programs are run on a single thread. Goroutines and channels are supported, but they can't be parallelized. Multiple goroutines may run concurrently if the current routine is waiting on an external resource. (Multi-threaded support is expected in the future.)
 * The source is uploaded to the App Engine and compiled there. (Go is the only compiled language on the App Engine.)
 
-Build Instructions
-==================
+## Build Instructions
+
 
 * Install [Go](http://golang.org/doc/install)
   
@@ -40,30 +37,21 @@ Build Instructions
   git clone repo_name_here
   ```
 
+  * Set GOPATH
+
+  ```
+  cd ../
+  export GOPATH=`pwd`
+  ```
+
 * Get Dependencies (Only needed the first time unless you add a new dep)
 
   ```
   go get ./...
   ```
 
-* Install
-
-  ```
-  go install ./...
-  ```
-
 * Run
 
-  Prod:
   ```
-  ./bin/backend --conf=../backend-deploy/conf/prod/prod.conf
+  goapp serve ./src
   ```
-  Dev:
-  ```
-  ./bin/backend --conf=../backend-deploy/conf/dev/dev.conf
-  ```
-
-API Documentation
-==================
-Documentation is available under dev configuration, located at /api-docs (when running locally: http://localhost:8080/api-docs)
-
