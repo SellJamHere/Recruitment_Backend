@@ -14,7 +14,7 @@ A few things to note:
 ## Build Instructions
 
 
-* Install [Go](http://golang.org/doc/install)
+* Install [Go](http://golang.org/doc/install) (Don't forget to add to PATH.)
   
   ```
   brew install go
@@ -33,11 +33,17 @@ A few things to note:
 
 * Clone this repo
   
+  If your github account has SSH set up:
   ```
-  git clone repo_name_here
+  git clone git@github.com:SellJamHere/Recruitment_Backend.git src
   ```
 
-  * Set GOPATH
+  Otherwise:
+  ```
+  git clone https://github.com/SellJamHere/Recruitment_Backend.git src
+  ```
+
+* Set GOPATH
 
   ```
   cd ../
