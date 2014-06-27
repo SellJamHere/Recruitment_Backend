@@ -1,0 +1,10 @@
+.DS_Store
+
+# Ignore everything
+*
+
+# Except
+!.gitignore
+!app.yaml
+!backend/
+!backend/*
