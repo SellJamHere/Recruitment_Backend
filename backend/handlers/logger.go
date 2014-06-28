@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	"fmt"
+	"appengine"
+	// "fmt"
 	"net/http"
 	"time"
 
@@ -33,7 +34,8 @@ func Logger() martini.Handler {
 		rw := w.(martini.ResponseWriter)
 		c.Next()
 
-		fmt.Printf(logFormat+"\n", r.Header.Get("X-Forwarded-For"), r.Cookies(), r.Method, r.URL, rw.Status(), r.Referer(), r.UserAgent(), r.ContentLength, r.Header.Get("Content-Type"), r.Form, time.Now().Sub(start))
+		gaeContext := appengine.NewContext(r)
+		gaeContext.Infof(logFormat+"\n", r.Header.Get("X-Forwarded-For"), r.Cookies(), r.Method, r.URL, rw.Status(), r.Referer(), r.UserAgent(), r.ContentLength, r.Header.Get("Content-Type"), r.Form, time.Now().Sub(start))
 	}
 	return func(res http.ResponseWriter, c martini.Context) {
 
