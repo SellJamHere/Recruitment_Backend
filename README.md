@@ -61,3 +61,26 @@ A few things to note:
   ```
   goapp serve ./src
   ```
+
+## Important Notes
+
+### Workspace Structure
+
+Your workspace should be structured as follows:
+
+```
+backend-api/
+  |bin/
+  |pkg/
+  |src/
+    |app.yaml
+    |backend/         <-- this source directory
+    |github.com/      <-- libs from github
+    |other_site.com/  <-- libs from another site
+```
+
+`app.yaml` contains runtime information for App Engine. It lives one directory above the source files. Source files you write are in the `backend/` directory. When running `go get`, code will be downloaded into an appropriate directory, ie github libraries to `github.com`. 
+
+### 3rd Party Libs and .gitignore
+
+Downloaded 3rd party libs need to be ignored. Each directory containing 3rd party libs must be added to `.gitignore`.
