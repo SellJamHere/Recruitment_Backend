@@ -1,4 +1,5 @@
 # Recruitment_Backend
+[![Stories in Ready](https://badge.waffle.io/selljamhere/Recruitment_Backend.png?label=ready&title=Ready)](https://waffle.io/selljamhere/recruitment_backend)
 
 ## Servers
 
