@@ -15,5 +15,5 @@ type Recruit struct {
 }
 
 func (r *Recruit) DatastoreKind() string {
-	return "Recruit"
+	return "recruit"
 }

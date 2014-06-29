@@ -11,7 +11,7 @@ A few things to note:
 * App Engine programs are run on a single thread. Goroutines and channels are supported, but they can't be parallelized. Multiple goroutines may run concurrently if the current routine is waiting on an external resource. (Multi-threaded support is expected in the future.)
 * The source is uploaded to the App Engine and compiled there. (Go is the only compiled language on the App Engine.)
 
-## Build Instructions
+## Local Build Instructions
 
 
 * Install [Go](http://golang.org/doc/install) (Don't forget to add to PATH.)

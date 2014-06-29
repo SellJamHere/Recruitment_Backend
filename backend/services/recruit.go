@@ -7,8 +7,6 @@ import (
 
 	"backend/errors"
 	"backend/models"
-
-	// "github.com/nimajalali/go-force/force"
 )
 
 func GetRecruits(context appengine.Context, includes string) ([]models.Recruit, *errors.ServerError) {

@@ -19,6 +19,9 @@ func init() {
 	m.Get("/recruits", getRecruits)
 	m.Get("/recruit/:id", getRecruit)
 	m.Post("/recruit", createRecruit)
+	m.Post("/recruits", createMultipleRecruits)
+	m.Patch("/recruit/:id", updateRecruit)
+	m.Delete("/recruit/:id", deleteRecruit)
 }
 
 func getRecruits(r handlers.Respond, req *http.Request) {
@@ -56,4 +59,16 @@ func createRecruit(r handlers.Respond, req *http.Request) {
 	}
 
 	r.Valid(200, recruitKey)
+}
+
+func createMultipleRecruits(r handlers.Respond, req *http.Request) {
+	r.Valid(200, "createMultipleRecruits")
+}
+
+func updateRecruit(params martini.Params, r handlers.Respond, req *http.Request) {
+	r.Valid(200, fmt.Sprintf("updateRecruit: %v", params["id"]))
+}
+
+func deleteRecruit(params martini.Params, r handlers.Respond, req *http.Request) {
+	r.Valid(200, fmt.Sprintf("deleteRecruit: %v", params["id"]))
 }
