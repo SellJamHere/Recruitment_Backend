@@ -10,10 +10,10 @@ import (
 	"backend/models"
 )
 
-func GetRecruits(context appengine.Context, includes string) ([]models.Recruit, *errors.ServerError) {
+func GetRecruits(context appengine.Context, includes string) ([]*models.Recruit, *errors.ServerError) {
 	query := datastore.NewQuery("recruit")
 
-	var recruits []models.Recruit
+	var recruits []*models.Recruit
 	keys, err := query.GetAll(context, &recruits)
 	if err != nil {
 		return nil, errors.New(err, "Unable to retrieve recruits", 500)

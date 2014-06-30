@@ -3,7 +3,8 @@
 
 ## Servers
 
-TBD: Google App Engine  
+[prod](http://uci-sailing-recruitment.appspot.com/)
+ 
 A little [background](http://blog.golang.org/go-and-google-app-engine) on the Go runtime for App Engine.
 
 A few things to note:
@@ -62,6 +63,18 @@ A few things to note:
   ```
   goapp serve ./src
   ```
+
+## Deploy to Google App Engine
+
+* Deploy
+
+  ```
+  goapp deploy ./src
+  ```
+
+* Enter email/password at prompt
+  * If terminal outputs "Use an application-specific password instead of your regular account password.", visit [App passwords](https://security.google.com/settings/security/apppasswords), and generate a new password.
+
 
 ## Important Notes
 
