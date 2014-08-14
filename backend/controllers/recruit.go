@@ -68,13 +68,30 @@ func createRecruit(r handlers.Respond, req *http.Request) {
 	}
 	recruit.DateRegistered = time.Now()
 
+	//check if email already used
+	recruits, emailErr := services.GetRecruitByEmail(appengine.NewContext(req), recruit.Email)
+	if emailErr != nil {
+		r.Error(emailErr)
+		return
+	}
+
+	if len(recruits) > 0 {
+		r.Error(errors.New(nil, "Email already registered", 499))
+		return
+	}
+
 	recruitKey, serverErr := services.CreateRecruit(appengine.NewContext(req), recruit)
 	if serverErr != nil {
 		r.Error(serverErr)
 		return
 	}
 
-	r.Valid(200, recruitKey)
+	recruit.EncodedKey = recruitKey.String()
+
+	// gaeContext := appengine.NewContext(req)
+	// gaeContext.Infof("Recruit Key: %v", recruit.EncodedKey)
+
+	r.Valid(200, recruit)
 }
 
 func createMultipleRecruits(r handlers.Respond, req *http.Request) {

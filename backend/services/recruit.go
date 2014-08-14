@@ -23,7 +23,6 @@ func GetRecruits(context appengine.Context, includes string) ([]*models.Recruit,
 		key := keys[i]
 		recruit := recruits[i]
 		recruit.EncodedKey = key.Encode()
-		recruits[i] = recruit
 	}
 
 	return recruits, nil
@@ -38,6 +37,24 @@ func GetRecruit(context appengine.Context, key *datastore.Key) (*models.Recruit,
 	}
 
 	return recruit, nil
+}
+
+func GetRecruitByEmail(context appengine.Context, email string) ([]*models.Recruit, *errors.ServerError) {
+	query := datastore.NewQuery("recruit").Filter("email = ", email)
+
+	var recruits []*models.Recruit
+	keys, err := query.GetAll(context, &recruits)
+	if err != nil {
+		return nil, errors.New(err, "Unable to retrieve recruits", 500)
+	}
+
+	for i := 0; i < len(keys); i++ {
+		key := keys[i]
+		recruit := recruits[i]
+		recruit.EncodedKey = key.Encode()
+	}
+
+	return recruits, nil
 }
 
 func CreateRecruit(context appengine.Context, recruit *models.Recruit) (*datastore.Key, *errors.ServerError) {
