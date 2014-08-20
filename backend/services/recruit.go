@@ -11,7 +11,8 @@ import (
 )
 
 func GetRecruits(context appengine.Context, includes string) ([]*models.Recruit, *errors.ServerError) {
-	query := datastore.NewQuery("recruit")
+	recruit := &models.Recruit{}
+	query := datastore.NewQuery(recruit.DatastoreKind())
 
 	var recruits []*models.Recruit
 	keys, err := query.GetAll(context, &recruits)
@@ -40,7 +41,8 @@ func GetRecruit(context appengine.Context, key *datastore.Key) (*models.Recruit,
 }
 
 func GetRecruitByEmail(context appengine.Context, email string) ([]*models.Recruit, *errors.ServerError) {
-	query := datastore.NewQuery("recruit").Filter("email = ", email)
+	recruit := &models.Recruit{}
+	query := datastore.NewQuery(recruit.DatastoreKind()).Filter("email = ", email)
 
 	var recruits []*models.Recruit
 	keys, err := query.GetAll(context, &recruits)
@@ -69,21 +71,22 @@ func CreateRecruit(context appengine.Context, recruit *models.Recruit) (*datasto
 }
 
 func UpdateRecruit(context appengine.Context, recruit *models.Recruit) *errors.ServerError {
-	context.Infof("%v", recruit)
+	//Decodes recruit's string key into datastore.Key
 	key, keyErr := datastore.DecodeKey(recruit.EncodedKey)
 	if keyErr != nil {
 		return errors.New(keyErr, "Invalid Key", 400)
 	}
 
-	context.Infof("%v", key.String())
-
 	err := datastore.RunInTransaction(context, func(context appengine.Context) error {
-		getErr := datastore.Get(context, key, recruit)
+		storedRecruit := &models.Recruit{}
+		getErr := datastore.Get(context, key, storedRecruit)
 		if getErr != nil {
 			return getErr
 		}
 
-		_, putErr := datastore.Put(context, key, recruit)
+		storedRecruit.UpdateFieldsWithRecruit(recruit)
+
+		_, putErr := datastore.Put(context, key, storedRecruit)
 		return putErr
 	}, nil)
 	if err != nil {

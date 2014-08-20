@@ -22,7 +22,7 @@ func init() {
 	m.Get("/recruits", getRecruits)
 	m.Get("/recruit/:key", getRecruit)
 	m.Post("/recruit", createRecruit)
-	m.Post("/recruits", createMultipleRecruits)
+	// m.Post("/recruits", createMultipleRecruits)
 	m.Patch("/recruit", updateRecruit)
 	m.Delete("/recruit/:key", deleteRecruit)
 }
@@ -75,6 +75,8 @@ func createRecruit(r handlers.Respond, req *http.Request) {
 		return
 	}
 
+	appengine.NewContext(req).Infof("%v", recruits)
+
 	if len(recruits) > 0 {
 		r.Error(errors.New(nil, "Email already registered", 499))
 		return
@@ -86,10 +88,7 @@ func createRecruit(r handlers.Respond, req *http.Request) {
 		return
 	}
 
-	recruit.EncodedKey = recruitKey.String()
-
-	// gaeContext := appengine.NewContext(req)
-	// gaeContext.Infof("Recruit Key: %v", recruit.EncodedKey)
+	recruit.EncodedKey = recruitKey.Encode()
 
 	r.Valid(200, recruit)
 }
