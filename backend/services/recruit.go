@@ -2,6 +2,7 @@ package services
 
 import (
 	// "fmt"
+	"time"
 
 	"appengine"
 	"appengine/datastore"
@@ -10,9 +11,21 @@ import (
 	"backend/models"
 )
 
-func GetRecruits(context appengine.Context, includes string) ([]*models.Recruit, *errors.ServerError) {
+func GetRecruits(context appengine.Context, updatedAt string) ([]*models.Recruit, *errors.ServerError) {
 	recruit := &models.Recruit{}
-	query := datastore.NewQuery(recruit.DatastoreKind())
+	var query *datastore.Query
+
+	updatedTime, timeParseErr := time.Parse(time.RFC3339, updatedAt)
+
+	if timeParseErr == nil {
+		context.Infof("updatedAt: %v", updatedTime)
+		query = datastore.NewQuery(recruit.DatastoreKind()).Filter("updated_at >", updatedTime).Order("updated_at")
+	} else {
+		context.Infof("updatedAt not sent. timeParseErr: %v", timeParseErr)
+		query = datastore.NewQuery(recruit.DatastoreKind())
+	}
+
+	context.Infof("query: %v", query)
 
 	var recruits []*models.Recruit
 	keys, err := query.GetAll(context, &recruits)

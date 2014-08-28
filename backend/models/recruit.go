@@ -5,13 +5,13 @@ import (
 )
 
 type Recruit struct {
-	EncodedKey     string    `datastore:"-" json:"key,omitempty"`
-	Name           string    `datastore:"name" json:"name,omitempty"`
-	Email          string    `datastore:"email" json:"email,omitempty"`
-	Year           int       `datastore:"year" json:"year,omitempty"`
-	Major          string    `datastore:"major" json:"major,omitempty"` //Possibly make this a dropdown with enumerated majors
-	IsMale         GAEBool   `datastore:"male" json:"male,omitempty"`
-	DateRegistered time.Time `datastore:"date_registered" json:"date_registered,omitempty"`
+	EncodedKey string    `datastore:"-" json:"key,omitempty"`
+	Name       string    `datastore:"name" json:"name,omitempty"`
+	Email      string    `datastore:"email" json:"email,omitempty"`
+	Year       int       `datastore:"year" json:"year,omitempty"`
+	Major      string    `datastore:"major" json:"major,omitempty"` //Possibly make this a dropdown with enumerated majors
+	IsMale     GAEBool   `datastore:"male" json:"male,omitempty"`
+	UpdatedAt  time.Time `datastore:"updated_at" json:"updated_at,omitempty"`
 	// interest_level  int
 }
 

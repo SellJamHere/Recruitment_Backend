@@ -20,15 +20,15 @@ import (
 
 func init() {
 	m.Get("/recruits", getRecruits)
-	m.Get("/recruit/:key", getRecruit)
-	m.Post("/recruit", createRecruit)
+	m.Get("/recruits/:key", getRecruit)
+	m.Post("/recruits", createRecruit)
 	// m.Post("/recruits", createMultipleRecruits)
-	m.Patch("/recruit", updateRecruit)
-	m.Delete("/recruit/:key", deleteRecruit)
+	m.Patch("/recruits", updateRecruit)
+	m.Delete("/recruits/:key", deleteRecruit)
 }
 
 func getRecruits(r handlers.Respond, req *http.Request) {
-	recruits, err := services.GetRecruits(appengine.NewContext(req), req.FormValue("include"))
+	recruits, err := services.GetRecruits(appengine.NewContext(req), req.FormValue("updated_at"))
 	if err != nil {
 		r.Error(err)
 		return
@@ -66,7 +66,7 @@ func createRecruit(r handlers.Respond, req *http.Request) {
 		r.Error(errors.New(err, "Unable to unmarshal donor into object", 500))
 		return
 	}
-	recruit.DateRegistered = time.Now()
+	recruit.UpdatedAt = time.Now()
 
 	//check if email already used
 	recruits, emailErr := services.GetRecruitByEmail(appengine.NewContext(req), recruit.Email)
@@ -110,6 +110,7 @@ func updateRecruit(r handlers.Respond, req *http.Request) {
 		r.Error(errors.New(err, "Unable to unmarshal donor into object", 500))
 		return
 	}
+	recruit.UpdatedAt = time.Now()
 
 	updateErr := services.UpdateRecruit(appengine.NewContext(req), recruit)
 	if updateErr != nil {
