@@ -1,6 +1,8 @@
 # Recruitment_Backend
 [![Stories in Ready](https://badge.waffle.io/selljamhere/Recruitment_Backend.png?label=ready&title=Ready)](https://waffle.io/selljamhere/recruitment_backend)
 
+Used in conjuction with [Recruitment_iOS](https://github.com/SellJamHere/Recruitment_iOS).
+
 ## Servers
 
 [prod](http://uci-sailing-recruitment.appspot.com/)
