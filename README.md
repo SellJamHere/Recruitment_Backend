@@ -2,10 +2,6 @@
 [![Stories in Ready](https://badge.waffle.io/selljamhere/Recruitment_Backend.png?label=ready&title=Ready)](https://waffle.io/selljamhere/recruitment_backend)
 
 Used in conjuction with [Recruitment_iOS](https://github.com/SellJamHere/Recruitment_iOS).
-
-## Servers
-
-[prod](http://uci-sailing-recruitment.appspot.com/)
  
 A little [background](http://blog.golang.org/go-and-google-app-engine) on the Go runtime for App Engine.
 
